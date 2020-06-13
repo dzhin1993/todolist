@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value = TodoController.URL)
 public class TodoController {
 
-    static final String URL = "/";
+    static final String URL = "/todoList";
 
     private final TodoRepository repository;
 
@@ -26,15 +26,15 @@ public class TodoController {
     @GetMapping
     public String getAll(Model model,
                          @PageableDefault(sort = {"dateTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        model.addAttribute("todos", repository.findAll(pageable));
-        return "index";
+        model.addAttribute("todoList", repository.findAll(pageable));
+        return "todoList";
     }
 
     @GetMapping("/by-completed")
     public String getAllByCompleted(Model model,
                          @PageableDefault(sort = {"dateTime"}, direction = Sort.Direction.ASC) Pageable pageable,
                                     @RequestParam(required= false, defaultValue = "false") Boolean completed) {
-        model.addAttribute("todos", repository.findAllByCompleted(pageable, completed));
-        return "index";
+        model.addAttribute("todoList", repository.findAllByCompleted(pageable, completed));
+        return "todoList";
     }
 }
