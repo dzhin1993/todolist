@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Datetime</th>
+        <th>Completed</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="todo : ${todos}">
+        <td th:text="${todo.name}"></td>
+        <td th:text="${todo.dateTime}"></td>
+        <td th:text="${todo.completed}"></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/by-completed?completed=1">completed</a>
+<a href="/by-completed?completed=0">active</a>
+</body>
+</html>
