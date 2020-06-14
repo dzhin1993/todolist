@@ -1,5 +1,6 @@
 package com.zhinkoilya1993.todolist.model.Controller;
 
+import com.zhinkoilya1993.todolist.model.Todo;
 import com.zhinkoilya1993.todolist.repository.TodoRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -7,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,5 +38,17 @@ public class TodoController {
                                     @RequestParam(required= false, defaultValue = "false") Boolean completed) {
         model.addAttribute("todoList", repository.findAllByCompleted(pageable, completed));
         return "todoList";
+    }
+
+    @GetMapping("/new")
+    public String initCreationForm(Model model) {
+        model.addAttribute("todo", new Todo());
+        return "todoForm";
+    }
+
+    @PostMapping
+    public String add(Todo todo) {
+        repository.save(todo);
+        return "redirect:/todoList";
     }
 }

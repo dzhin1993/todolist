@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+<form action="#" th:action="@{/todoList}" th:object="${todo}" method="post">
+    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <input type="datetime-local" th:field="*{dateTime}" id="dateTime">
+    <input type="submit" value="Add">
+</form>
+</body>
+</html>
