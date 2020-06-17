@@ -62,8 +62,24 @@ public class TodoController {
         return "todoForm";
     }
 
+    @GetMapping("/update")
+    public String initUpdateForm(Model model, @RequestParam Integer id) {
+        Todo t = repository.findById(id).get();
+        model.addAttribute("todo", t);
+        return "todoForm";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam Integer id) {
+        repository.deleteById(id);
+        return "redirect:/todoList";
+    }
+
     @PostMapping
-    public String add(Todo todo) {
+    public String saveOrUpdate(Todo todo) {
+        if (todo.isNew()) {
+            System.out.println(todo.getId());
+        }
         repository.save(todo);
         return "redirect:/todoList";
     }

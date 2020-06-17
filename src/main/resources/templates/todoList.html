@@ -12,6 +12,8 @@
         <th>Name</th>
         <th>Datetime</th>
         <th>Completed</th>
+        <th>Delete</th>
+        <th>Update</th>
     </tr>
     </thead>
     <tbody>
@@ -19,6 +21,8 @@
         <td th:text="${todo.name}"></td>
         <td th:text="${todo.dateTime}"></td>
         <td th:text="${todo.completed}"></td>
+        <td><a th:href="@{/todoList/delete(id=${todo.id})}">delete</a></td>
+        <td><a th:href="@{/todoList/update(id=${todo.id})}">update</a></td>
     </tr>
     </tbody>
 </table>
