@@ -50,9 +50,8 @@ public class TodoController {
 
     @GetMapping("/by-completed")
     public String getAllByCompleted(Model model,
-                         @PageableDefault(sort = {"dateTime"}, direction = Sort.Direction.ASC) Pageable pageable,
                                     @RequestParam(required= false, defaultValue = "false") Boolean completed) {
-        model.addAttribute("todoList", repository.findAllByCompleted(pageable, completed));
+        model.addAttribute("todoList", repository.findAllByCompleted(completed));
         return "todoList";
     }
 
@@ -64,8 +63,7 @@ public class TodoController {
 
     @GetMapping("/update")
     public String initUpdateForm(Model model, @RequestParam Integer id) {
-        Todo t = repository.findById(id).get();
-        model.addAttribute("todo", t);
+        model.addAttribute("todo", repository.findById(id));
         return "todoForm";
     }
 
@@ -77,9 +75,6 @@ public class TodoController {
 
     @PostMapping
     public String saveOrUpdate(Todo todo) {
-        if (todo.isNew()) {
-            System.out.println(todo.getId());
-        }
         repository.save(todo);
         return "redirect:/todoList";
     }
