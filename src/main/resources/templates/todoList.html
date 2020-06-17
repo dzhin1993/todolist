@@ -24,5 +24,11 @@
 </table>
 <a href="/todoList/by-completed?completed=1">completed</a>
 <a href="/todoList/by-completed?completed=0">active</a>
+<hr>
+<div th:if="${todoList.totalPages > 0}"
+     th:each="pageNumber : ${pageNumbers}">
+    <a th:href="@{/todoList(size=${todoList.size}, page=${pageNumber})}"
+       th:text="${pageNumber}"></a>
+</div>
 </body>
 </html>

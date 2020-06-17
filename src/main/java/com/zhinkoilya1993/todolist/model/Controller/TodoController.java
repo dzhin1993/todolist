@@ -2,6 +2,7 @@ package com.zhinkoilya1993.todolist.model.Controller;
 
 import com.zhinkoilya1993.todolist.model.Todo;
 import com.zhinkoilya1993.todolist.repository.TodoRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Controller
@@ -28,7 +33,18 @@ public class TodoController {
     @GetMapping
     public String getAll(Model model,
                          @PageableDefault(sort = {"dateTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        model.addAttribute("todoList", repository.findAll(pageable));
+
+        Page<Todo> page = repository.findAll(pageable);
+        int totalPages = page.getTotalPages() - 1;
+
+        model.addAttribute("todoList", page);
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         return "todoList";
     }
 
