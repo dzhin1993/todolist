@@ -1,4 +1,4 @@
-package com.zhinkoilya1993.todolist.model.Controller;
+package com.zhinkoilya1993.todolist.config;
 
 import org.springframework.format.Formatter;
 import org.springframework.util.StringUtils;

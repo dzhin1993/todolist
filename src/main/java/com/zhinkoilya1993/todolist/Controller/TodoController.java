@@ -1,4 +1,4 @@
-package com.zhinkoilya1993.todolist.model.Controller;
+package com.zhinkoilya1993.todolist.Controller;
 
 import com.zhinkoilya1993.todolist.model.Todo;
 import com.zhinkoilya1993.todolist.repository.TodoRepository;
