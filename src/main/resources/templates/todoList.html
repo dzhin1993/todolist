@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Todo List</title>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{css/style.css}"/>
+    <script type="text/javascript" src="webjars/jquery/3.2.0/jquery.js"></script>
+    <script type="text/javascript" th:src="@{js/common.js}"></script>
 </head>
 <body>
 <a href="/todoList/new">add Todo</a>
@@ -18,10 +20,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="todo : ${todoList}">
+    <tr th:each="todo : ${todoList}" th:attr="data-todoCompleted=${todo.completed}">
         <td th:text="${todo.name}"></td>
         <td th:text="${todo.dateTime}"></td>
-        <td th:text="${todo.completed}"></td>
+        <td>
+            <input th:onclick="|complete('${todo.id}', '${!todo.completed}')|" type="checkbox" th:checked="${todo.completed}"/>
+        </td>
         <td><a th:href="@{/todoList/delete(id=${todo.id})}">delete</a></td>
         <td><a th:href="@{/todoList/update(id=${todo.id})}">update</a></td>
     </tr>
@@ -30,7 +34,7 @@
 <a href="/todoList/by-completed?completed=1">completed</a>
 <a href="/todoList/by-completed?completed=0">active</a>
 <hr>
-<div th:if="${todoList.totalPages > 0}"
+<div class="pagination" th:if="${todoList.totalPages > 0}"
      th:each="pageNumber : ${pageNumbers}">
     <a th:href="@{/todoList(size=${todoList.size}, page=${pageNumber})}"
        th:text="${pageNumber}"></a>
