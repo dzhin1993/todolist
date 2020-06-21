@@ -33,11 +33,11 @@ public class TodoController {
     }
 
     @GetMapping
-    public String getAll(Model model,
+    public String getAll(Model model, @RequestParam(required = false) Boolean completed,
                          @PageableDefault(sort = {"dateTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
 
         Page<Todo> page = repository.findAll(pageable);
-        int totalPages = page.getTotalPages() - 1;
+        int totalPages = page.getTotalPages();
 
         model.addAttribute("todoList", page);
 
