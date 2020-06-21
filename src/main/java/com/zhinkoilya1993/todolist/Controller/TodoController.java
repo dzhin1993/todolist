@@ -2,6 +2,7 @@ package com.zhinkoilya1993.todolist.Controller;
 
 import com.zhinkoilya1993.todolist.model.Todo;
 import com.zhinkoilya1993.todolist.repository.TodoRepository;
+import com.zhinkoilya1993.todolist.service.TodoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -9,10 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,9 +25,11 @@ public class TodoController {
     static final String URL = "/todoList";
 
     private final TodoRepository repository;
+    private final TodoService service;
 
-    public TodoController(TodoRepository repository) {
+    public TodoController(TodoRepository repository, TodoService service) {
         this.repository = repository;
+        this.service = service;
     }
 
     @GetMapping
@@ -81,6 +81,12 @@ public class TodoController {
             return "todoForm";
         }
         repository.save(todo);
+        return "redirect:/todoList";
+    }
+
+    @PostMapping("/complete")
+    public String enable(@RequestParam Integer id, @RequestParam(value = "completed") Boolean completed) {
+        service.complete(id, completed);
         return "redirect:/todoList";
     }
 }
