@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<form action="#" th:action="@{/todoList}" th:object="${todo}" method="post">
+<form class="form" action="#" th:action="@{/todoList}" th:object="${todo}" method="post">
     <input type="hidden" th:field="*{id}"/>
     <input type="text" th:field="*{name}" placeholder="Name"/>
     <input type="datetime-local" th:field="*{dateTime}"/>
