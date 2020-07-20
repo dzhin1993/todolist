@@ -1,9 +1,11 @@
 package com.zhinkoilya1993.todolist.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
 
 @MappedSuperclass
 @Data
@@ -11,5 +13,6 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
 	@Column(name = "name")
+	@NotBlank
 	private String name;
 }

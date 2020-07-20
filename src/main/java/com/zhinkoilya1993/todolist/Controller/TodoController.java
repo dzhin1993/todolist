@@ -33,27 +33,22 @@ public class TodoController {
     }
 
     @GetMapping
-    public String getAll(Model model, @RequestParam(required = false) Boolean completed,
-                         @PageableDefault(sort = {"dateTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
+    public String getAllByCompleted(Model model, @RequestParam(required = false) Boolean completed,
+                                    @PageableDefault(sort = {"dateTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
 
-        Page<Todo> page = repository.findAll(pageable);
-        int totalPages = page.getTotalPages();
+        Page<Todo> page = completed != null
+                ? repository.findAllByCompleted(completed, pageable)
+                : repository.findAll(pageable);
 
         model.addAttribute("todoList", page);
 
+        int totalPages = page.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
-        return "todoList";
-    }
-
-    @GetMapping("/by-completed")
-    public String getAllByCompleted(Model model,
-                                    @RequestParam(required= false, defaultValue = "false") Boolean completed) {
-        model.addAttribute("todoList", repository.findAllByCompleted(completed));
         return "todoList";
     }
 
