@@ -7,8 +7,8 @@
     <script type="text/javascript" src="/webjars/jquery/3.2.0/jquery.js"></script>
     <script type="text/javascript" th:src="@{/js/common.js}"></script>
 
+    <!-- Bootstrap-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -36,8 +36,12 @@
                 <input th:onclick="|complete('${todo.id}', '${!todo.completed}')|" type="checkbox"
                        th:checked="${todo.completed}"/>
             </td>
-            <td><a th:href="@{/todoList/delete(id=${todo.id})}">delete</a></td>
-            <td><a th:href="@{/todoList/update(id=${todo.id})}">update</a></td>
+            <td>
+                <button class="btn btn-danger" th:onclick="|deleteRow('${todo.id}')|">Delete</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" th:onclick="|update('${todo.id}')|">Update</button>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -51,41 +55,33 @@
        th:text="${pageNumber}"></a>
 </div>
 
-<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="modal" role="form">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header">
+                <h4 class="modal-title">Add Todo</h4>
             </div>
-            <div class="modal-body mx-3">
-                <div class="md-form mb-5">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="email" id="defaultForm-email" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
-                </div>
-
-                <div class="md-form mb-4">
-                    <i class="fas fa-lock prefix grey-text"></i>
-                    <input type="password" id="defaultForm-pass" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
-                </div>
-
+            <div class="modal-body">
+                <form id="detailsForm">
+                    <input type="hidden" id="id" name="id">
+                    <div class="form-group">
+                        <label for="name" class="col-form-label">Task Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Task name">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateTime" class="col-form-label">Date Time</label>
+                        <input type="datetime-local" class="form-control" id="dateTime" name="dateTime">
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-default">Login</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="save()">Save</button>
             </div>
         </div>
     </div>
 </div>
-
-<div class="text-center">
-    <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
-        Modal Login Form</a>
-</div>
-
 </body>
 </html>

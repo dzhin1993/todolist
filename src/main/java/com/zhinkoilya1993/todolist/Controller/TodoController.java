@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,31 +53,21 @@ public class TodoController {
         return "todoList";
     }
 
-    @GetMapping("/new")
-    public String initCreationForm(Model model) {
-        model.addAttribute("todo", new Todo());
-        return "todoForm";
+    @GetMapping(value = "/{id}")
+    @ResponseBody
+    public Todo get(@PathVariable int id) {
+        return repository.findById(id).get();
     }
 
-    @GetMapping("/update")
-    public String initUpdateForm(Model model, @RequestParam Integer id) {
-        model.addAttribute("todo", repository.findById(id));
-        return "todoForm";
-    }
-
-    @GetMapping("/delete")
-    public String delete(@RequestParam Integer id) {
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
         repository.deleteById(id);
-        return "redirect:/todoList";
     }
 
     @PostMapping
-    public String saveOrUpdate(@Valid Todo todo, BindingResult result) {
-        if(result.hasErrors()) {
-            return "todoForm";
-        }
+    public void saveOrUpdate(@Valid Todo todo, BindingResult result) {
         repository.save(todo);
-        return "redirect:/todoList";
     }
 
     @PostMapping("/complete")
