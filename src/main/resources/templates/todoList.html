@@ -49,15 +49,16 @@
 <a href="/todoList?completed=1">completed</a>
 <a href="/todoList?completed=0">active</a>
 <hr>
-<div class="pagination" th:if="${todoList.totalPages > 0}"
-     th:each="pageNumber : ${pageNumbers}">
-    <a th:href="@{/todoList(size=${todoList.size}, page=${pageNumber} - 1)}"
-       th:text="${pageNumber}"></a>
-</div>
+<ul class="pagination">
+    <li class="page-item" th:if="${todoList.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+        <a class="page-link" th:href="@{/todoList(size=${todoList.size}, page=${pageNumber} - 1)}"
+           th:text="${pageNumber}"></a>
+    </li>
+</ul>
+
 
 <div class="modal fade" id="modal" role="form">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
