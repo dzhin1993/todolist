@@ -7,3 +7,7 @@ function complete(id, completed) {
         location.reload();
     });
 }
+
+function add() {
+    $("#modalLoginForm").modal();
+}
