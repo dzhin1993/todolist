@@ -22,18 +22,26 @@ $(function () {
                         "data": "name"
                     },
                     {
-                        "data": "dateTime",
+                        "data": "dateTime"
                     },
                     {
-                        "data": "completed"
+                        "data": "completed",
+                        "render": function (data, type, row) {
+                            if (type === "display") {
+                                return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='complete($(this)," + row.id + ");'/>";
+                            }
+                            return data;
+                        }
                     },
                     {
-                        "orderable": false,
-                        "defaultContent": "Delete",
+                        "render": renderDeleteBtn,
+                        "defaultContent": "",
+                        "orderable": false
                     },
                     {
-                        "orderable": false,
-                        "defaultContent": "Update",
+                        "render": renderEditBtn,
+                        "defaultContent": "",
+                        "orderable": false
                     }
                 ],
                 "order": [
@@ -43,17 +51,21 @@ $(function () {
                     ]
                 ],
             }),
+            updateTable: function () {
+                $.get("/todoList/all", updateTableByData);
+            }
         }
     );
 });
 
-function complete(id, completed) {
+function complete(chkbox, id) {
+    let enabled = chkbox.is(":checked");
     $.ajax({
         type: 'POST',
         url: '/todoList/complete',
-        data: {id: id, completed: completed}
+        data: {id: id, completed: enabled}
     }).done(function () {
-        location.reload();
+        chkbox.closest("tr").attr("data-todoCompleted", enabled);
     });
 }
 
@@ -63,11 +75,21 @@ function save() {
         url: '/todoList',
         data: $('#detailsForm').serialize()
     }).done(function () {
-        location.reload();
+        context.updateTable();
+        $('#modal').modal('toggle');
     });
 }
 
-function update(id) {
+function deleteRow(id) {
+    $.ajax({
+        url: '/todoList/' + id,
+        type: "DELETE"
+    }).done(function () {
+        context.updateTable();
+    });
+}
+
+function updateRow(id) {
     $.get('/todoList/' + id, function (data) {
         $.each(data, function (key, value) {
             $('#detailsForm').find("input[name='" + key + "']").val(value);
@@ -76,15 +98,22 @@ function update(id) {
     });
 }
 
-function deleteRow(id) {
-        $.ajax({
-            url: '/todoList/' + id,
-            type: "DELETE"
-        }).done(function () {
-            location.reload();
-        });
-}
-
 function add() {
     $("#modal").modal();
+}
+
+function updateTableByData(data) {
+    context.datatableApi.clear().rows.add(data).draw();
+}
+
+function renderEditBtn(data, type, row) {
+    if (type === "display") {
+        return "<button class='btn btn-primary' onclick='updateRow(" + row.id + ");'>Update</button>";
+    }
+}
+
+function renderDeleteBtn(data, type, row) {
+    if (type === "display") {
+        return "<button class='btn btn-danger' onclick='deleteRow(" + row.id + ");'>Delete</button>";
+    }
 }
