@@ -1,5 +1,6 @@
 package com.zhinkoilya1993.todolist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ public abstract class AbstractBaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@JsonIgnore
 	public boolean isNew() {
 		return this.id == null;
 	}

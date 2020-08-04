@@ -3,20 +3,14 @@ package com.zhinkoilya1993.todolist.Controller;
 import com.zhinkoilya1993.todolist.model.Todo;
 import com.zhinkoilya1993.todolist.repository.TodoRepository;
 import com.zhinkoilya1993.todolist.service.TodoService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 
 @Controller
@@ -33,24 +27,15 @@ public class TodoController {
         this.service = service;
     }
 
-    @GetMapping
-    public String getAllByCompleted(Model model, @RequestParam(required = false) Boolean completed,
-                                    @PageableDefault(sort = {"dateTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
-
-        Page<Todo> page = completed != null
-                ? repository.findAllByCompleted(completed, pageable)
-                : repository.findAll(pageable);
-
-        model.addAttribute("todoList", page);
-
-        int totalPages = page.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
+    @GetMapping()
+    public String init() {
         return "todoList";
+    }
+
+    @GetMapping(value = "/all" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Todo> getAll() {
+       return (List<Todo>) repository.findAll();
     }
 
     @GetMapping(value = "/{id}")
