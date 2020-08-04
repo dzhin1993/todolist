@@ -1,4 +1,5 @@
-var context;
+let ajaxUrl = "ajax/todoList/";
+let context;
 
 function makeEditable(ctx) {
     context = ctx;
@@ -9,10 +10,9 @@ function makeEditable(ctx) {
 
 $(function () {
     makeEditable({
-            ajaxUrl: "/todoList",
             datatableApi: $("#todoTable").DataTable({
                 "ajax": {
-                    "url": "/todoList/all",
+                    "url": ajaxUrl,
                     "dataSrc": ""
                 },
                 "paging": false,
@@ -52,7 +52,7 @@ $(function () {
                 ],
             }),
             updateTable: function () {
-                $.get("/todoList/all", updateTableByData);
+                $.get(ajaxUrl, updateTableByData);
             }
         }
     );
@@ -62,7 +62,7 @@ function complete(chkbox, id) {
     let enabled = chkbox.is(":checked");
     $.ajax({
         type: 'POST',
-        url: '/todoList/complete',
+        url: ajaxUrl + 'complete',
         data: {id: id, completed: enabled}
     }).done(function () {
         chkbox.closest("tr").attr("data-todoCompleted", enabled);
@@ -72,7 +72,7 @@ function complete(chkbox, id) {
 function save() {
     $.ajax({
         type: 'POST',
-        url: '/todoList',
+        url: ajaxUrl,
         data: $('#detailsForm').serialize()
     }).done(function () {
         context.updateTable();
@@ -82,7 +82,7 @@ function save() {
 
 function deleteRow(id) {
     $.ajax({
-        url: '/todoList/' + id,
+        url: ajaxUrl + id,
         type: "DELETE"
     }).done(function () {
         context.updateTable();
@@ -90,7 +90,7 @@ function deleteRow(id) {
 }
 
 function updateRow(id) {
-    $.get('/todoList/' + id, function (data) {
+    $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             $('#detailsForm').find("input[name='" + key + "']").val(value);
         });

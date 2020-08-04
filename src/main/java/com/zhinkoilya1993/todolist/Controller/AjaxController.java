@@ -5,41 +5,32 @@ import com.zhinkoilya1993.todolist.repository.TodoRepository;
 import com.zhinkoilya1993.todolist.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 
-@Controller
-@RequestMapping(value = TodoController.URL)
-public class TodoController {
+@RestController
+@RequestMapping(value = AjaxController.URL)
+public class AjaxController {
 
-    static final String URL = "/todoList";
+    static final String URL = "/ajax/todoList";
 
     private final TodoRepository repository;
     private final TodoService service;
 
-    public TodoController(TodoRepository repository, TodoService service) {
+    public AjaxController(TodoRepository repository, TodoService service) {
         this.repository = repository;
         this.service = service;
     }
 
-    @GetMapping()
-    public String init() {
-        return "todoList";
-    }
-
-    @GetMapping(value = "/all" ,produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Todo> getAll() {
        return (List<Todo>) repository.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    @ResponseBody
     public Todo get(@PathVariable int id) {
         return repository.findById(id).get();
     }
@@ -51,7 +42,7 @@ public class TodoController {
     }
 
     @PostMapping
-    public void saveOrUpdate(@Valid Todo todo, BindingResult result) {
+    public void saveOrUpdate(@Valid Todo todo) {
         repository.save(todo);
     }
 
