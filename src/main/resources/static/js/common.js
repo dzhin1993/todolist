@@ -15,8 +15,7 @@ $(function () {
                     "url": ajaxUrl,
                     "dataSrc": ""
                 },
-                "paging": false,
-                "info": true,
+                "info": false,
                 "columns": [
                     {
                         "data": "name"

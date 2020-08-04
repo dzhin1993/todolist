@@ -5,3 +5,13 @@ tr[data-todoCompleted="true"] {
 tr[data-todoCompleted="false"] {
   text-decoration: none;
 }
+
+#todoTable_paginate a {
+  color: black;
+  padding: 8px;
+  cursor: pointer;
+}
+
+#todoTable_paginate a:hover {
+  background-color: #ddd;
+}

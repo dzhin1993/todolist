@@ -5,20 +5,28 @@
     <title>Todo List</title>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}"/>
     <script type="text/javascript" src="/webjars/jquery/3.2.0/jquery.js"></script>
-    <script type="text/javascript" src="/webjars/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/webjars/datatables/1.10.20/js/jquery.dataTables.js"></script>
     <script type="text/javascript" th:src="@{/js/common.js}"></script>
 
     <!-- Bootstrap-->
+    <link rel="stylesheet" href="webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
 <body>
-<button class="btn btn-primary" onclick="add()">
-    <span class="fa fa-plus">add</span>
-</button>
-<div class="m-1">
+
+<div class="container">
+    <div class="text-center">
+        <h3>Todo List</h3>
+    </div>
+</div>
+
+<div class="container">
+    <button class="btn btn-primary mb-2" onclick="add()">
+        <span class="fa fa-plus">add</span>
+    </button>
     <table id="todoTable" class="table table-striped">
         <thead>
         <tr>
@@ -31,6 +39,7 @@
         </thead>
     </table>
 </div>
+
 <a href="/todoList?completed=1">completed</a>
 <a href="/todoList?completed=0">active</a>
 <hr>
