@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class RootController {
+
     @GetMapping("/todoList")
     public String getMeals() {
         return "todoList";

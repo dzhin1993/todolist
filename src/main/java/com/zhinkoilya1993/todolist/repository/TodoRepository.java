@@ -11,7 +11,7 @@ public interface TodoRepository extends PagingAndSortingRepository<Todo, Integer
 
     List<Todo> findAllByCompleted(Boolean completed);
 
-    Todo getById(int id);
+    Todo get(int id, int userId);
 
     @Override
     List<Todo> findAll();
