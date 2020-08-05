@@ -1,6 +1,6 @@
 /*INSERT INTO users VALUES (1, 'user', 'user@mail.ru', 'user', '2010-10-20 10:10');*/
 
-INSERT INTO todo VALUES (1, 'day_1_task_1', '2010-10-1 13:00', FALSE/*, 1*/);
+INSERT INTO todo VALUES (1, 'day_1_task_1', '2010-10-1 13:00', TRUE/*, 1*/);
 INSERT INTO todo VALUES (2, 'day_1_task_2', '2010-10-1 18:00', FALSE/*, 1*/);
 INSERT INTO todo VALUES (3, 'day_1_task_3', '2010-10-1 21:00', FALSE/*, 1*/);
 

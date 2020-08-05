@@ -1,5 +1,6 @@
 let ajaxUrl = "ajax/todoList/";
 let context;
+let isCompleted;
 
 function makeEditable(ctx) {
     context = ctx;
@@ -25,12 +26,7 @@ $(function () {
                     },
                     {
                         "data": "completed",
-                        "render": function (data, type, row) {
-                            if (type === "display") {
-                                return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='complete($(this)," + row.id + ");'/>";
-                            }
-                            return data;
-                        }
+                        "render": renderCheckBox
                     },
                     {
                         "render": renderDeleteBtn,
@@ -50,12 +46,22 @@ $(function () {
                     ]
                 ],
             }),
-            updateTable: function () {
-                $.get(ajaxUrl, updateTableByData);
-            }
+            updateTable: updateFiltered
         }
     );
 });
+
+function updateFiltered() {
+    if (isCompleted == null) {
+        $.get(ajaxUrl, updateTableByData);
+    } else {
+        $.ajax({
+            type: "GET",
+            url: ajaxUrl + "by-completed",
+            data: {completed: isCompleted}
+        }).done(updateTableByData);
+    }
+}
 
 function complete(chkbox, id) {
     let enabled = chkbox.is(":checked");
@@ -64,7 +70,7 @@ function complete(chkbox, id) {
         url: ajaxUrl + 'complete',
         data: {id: id, completed: enabled}
     }).done(function () {
-        chkbox.closest("tr").attr("data-todoCompleted", enabled);
+        context.updateTable();
     });
 }
 
@@ -105,6 +111,13 @@ function updateTableByData(data) {
     context.datatableApi.clear().rows.add(data).draw();
 }
 
+function filter(filter) {
+    if (filter === 'All') {
+        isCompleted = null;
+    } else isCompleted = filter !== "Active";
+    context.updateTable();
+}
+
 function renderEditBtn(data, type, row) {
     if (type === "display") {
         return "<button class='btn btn-primary' onclick='updateRow(" + row.id + ");'>Update</button>";
@@ -115,4 +128,11 @@ function renderDeleteBtn(data, type, row) {
     if (type === "display") {
         return "<button class='btn btn-danger' onclick='deleteRow(" + row.id + ");'>Delete</button>";
     }
+}
+
+function renderCheckBox(data, type, row) {
+    if (type === "display") {
+        return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='complete($(this)," + row.id + ");'/>";
+    }
+    return data;
 }

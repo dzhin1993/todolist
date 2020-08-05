@@ -19,7 +19,6 @@ public class Todo extends AbstractNamedEntity {
     @NotNull
     private LocalDateTime dateTime;
 
-    @Column(name = "completed")
     @NotNull
     private boolean completed = false;
 

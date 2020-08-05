@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <title>Todo List</title>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}"/>
-    <script type="text/javascript" src="/webjars/jquery/3.2.0/jquery.js"></script>
+    <script type="text/javascript" src="/webjars/jquery/3.2.0/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/datatables/1.10.20/js/jquery.dataTables.js"></script>
     <script type="text/javascript" th:src="@{/js/common.js}"></script>
 
     <!-- Bootstrap-->
     <link rel="stylesheet" href="webjars/datatables/1.10.20/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -24,25 +26,33 @@
 </div>
 
 <div class="container">
-    <button class="btn btn-primary mb-2" onclick="add()">
-        <span class="fa fa-plus">add</span>
-    </button>
+    <div class="row">
+        <button class="btn btn-primary mb-2" onclick="add()">
+            <span>add</span>
+        </button>
+        <div class="dropdown p-lg-2">
+            <button class="btn btn-primary mb-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter tasks
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="filter('All')">All</a>
+                <a class="dropdown-item" onclick="filter('Active')">Active</a>
+                <a class="dropdown-item" onclick="filter('Completed')">Completed</a>
+            </div>
+        </div>
+    </div>
     <table id="todoTable" class="table table-striped">
         <thead>
         <tr>
             <th>Name</th>
             <th>Datetime</th>
             <th>Completed</th>
-            <th>Delete</th>
-            <th>Update</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
     </table>
 </div>
-
-<a href="/todoList?completed=1">completed</a>
-<a href="/todoList?completed=0">active</a>
-<hr>
 
 
 <div class="modal fade" id="modal" role="form">

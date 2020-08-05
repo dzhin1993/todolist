@@ -30,6 +30,11 @@ public class AjaxController {
        return (List<Todo>) repository.findAll();
     }
 
+    @GetMapping("/by-completed")
+    public List<Todo> getAllByCompleted(@RequestParam(value = "completed") Boolean completed) {
+        return repository.findAllByCompleted(completed);
+    }
+
     @GetMapping(value = "/{id}")
     public Todo get(@PathVariable int id) {
         return repository.findById(id).get();
@@ -47,8 +52,7 @@ public class AjaxController {
     }
 
     @PostMapping("/complete")
-    public String enable(@RequestParam Integer id, @RequestParam(value = "completed") Boolean completed) {
+    public void enable(@RequestParam Integer id, @RequestParam(value = "completed") Boolean completed) {
         service.complete(id, completed);
-        return "redirect:/todoList";
     }
 }
