@@ -10,4 +10,9 @@ import java.util.List;
 public interface TodoRepository extends PagingAndSortingRepository<Todo, Integer> {
 
     List<Todo> findAllByCompleted(Boolean completed);
+
+    Todo getById(int id);
+
+    @Override
+    List<Todo> findAll();
 }

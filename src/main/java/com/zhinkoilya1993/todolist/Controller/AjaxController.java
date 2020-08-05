@@ -27,7 +27,7 @@ public class AjaxController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Todo> getAll() {
-       return (List<Todo>) repository.findAll();
+       return repository.findAll();
     }
 
     @GetMapping("/by-completed")
@@ -37,7 +37,7 @@ public class AjaxController {
 
     @GetMapping(value = "/{id}")
     public Todo get(@PathVariable int id) {
-        return repository.findById(id).get();
+        return repository.getById(id);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -52,7 +52,7 @@ public class AjaxController {
     }
 
     @PostMapping("/complete")
-    public void enable(@RequestParam Integer id, @RequestParam(value = "completed") Boolean completed) {
+    public void complete(@RequestParam Integer id, @RequestParam(value = "completed") Boolean completed) {
         service.complete(id, completed);
     }
 }
