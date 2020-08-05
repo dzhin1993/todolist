@@ -1,18 +1,21 @@
 package com.zhinkoilya1993.todolist.repository;
 
 import com.zhinkoilya1993.todolist.model.Todo;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface TodoRepository extends PagingAndSortingRepository<Todo, Integer> {
+public interface TodoRepository extends CrudRepository<Todo, Integer> {
 
-    List<Todo> findAllByCompleted(Boolean completed);
+    @Query("SELECT t FROM Todo t WHERE t.user.id=?1 AND t.completed=?2")
+    List<Todo> getAllByCompleted(int id, boolean completed);
 
-    Todo get(int id, int userId);
+    @Query("SELECT t FROM Todo t WHERE t.user.id=?1")
+    List<Todo> getAll(int userId);
 
-    @Override
-    List<Todo> findAll();
+    @Query("DELETE FROM Todo t WHERE t.id=?1 AND t.user.id=?2")
+    void delete(int id, int userId);
 }

@@ -1,13 +1,11 @@
 package com.zhinkoilya1993.todolist.Controller;
 
 import com.zhinkoilya1993.todolist.model.Todo;
-import com.zhinkoilya1993.todolist.repository.TodoRepository;
 import com.zhinkoilya1993.todolist.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
@@ -17,38 +15,36 @@ public class AjaxController {
 
     static final String URL = "/ajax/todoList";
 
-    private final TodoRepository repository;
     private final TodoService service;
 
-    public AjaxController(TodoRepository repository, TodoService service) {
-        this.repository = repository;
+    public AjaxController(TodoService service) {
         this.service = service;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Todo> getAll() {
-       return repository.findAll();
+       return service.getAll();
     }
 
     @GetMapping("/by-completed")
     public List<Todo> getAllByCompleted(@RequestParam(value = "completed") Boolean completed) {
-        return repository.findAllByCompleted(completed);
+        return service.getAllByCompleted(completed);
     }
 
     @GetMapping(value = "/{id}")
     public Todo get(@PathVariable int id) {
-        return repository.getById(id);
+        return service.get(id);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        repository.deleteById(id);
+        service.delete(id);
     }
 
     @PostMapping
-    public void saveOrUpdate(@Valid Todo todo) {
-        repository.save(todo);
+    public void saveOrUpdate(Todo todo) {
+        service.saveOrUpdate(todo);
     }
 
     @PostMapping("/complete")
