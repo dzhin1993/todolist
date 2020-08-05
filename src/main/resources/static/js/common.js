@@ -22,7 +22,8 @@ $(function () {
                         "data": "name"
                     },
                     {
-                        "data": "dateTime"
+                        "data": "dateTime",
+                        "render": renderDateTime
                     },
                     {
                         "data": "completed",
@@ -135,4 +136,11 @@ function renderCheckBox(data, type, row) {
         return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='complete($(this)," + row.id + ");'/>";
     }
     return data;
+}
+
+function renderDateTime(date, type) {
+    if (type === 'display') {
+        return date.replace('T', ' ').substr(0, 16);
+    }
+    return date;
 }
