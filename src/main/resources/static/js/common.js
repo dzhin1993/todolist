@@ -1,9 +1,11 @@
 let ajaxUrl = "ajax/todoList/";
 let context;
 let isCompleted;
+let form;
 
 function makeEditable(ctx) {
     context = ctx;
+    form = $('#detailsForm');
 
     // solve problem with cache in IE: https://stackoverflow.com/a/4303862/548473
     $.ajaxSetup({cache: false});
@@ -79,7 +81,7 @@ function save() {
     $.ajax({
         type: 'POST',
         url: ajaxUrl,
-        data: $('#detailsForm').serialize()
+        data: form.serialize()
     }).done(function () {
         context.updateTable();
         $('#modal').modal('toggle');
@@ -98,13 +100,14 @@ function deleteRow(id) {
 function updateRow(id) {
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
-            $('#detailsForm').find("input[name='" + key + "']").val(value);
+            form.find("input[name='" + key + "']").val(value);
         });
         $('#modal').modal();
     });
 }
 
 function add() {
+    form.find(":input").val("");
     $("#modal").modal();
 }
 
