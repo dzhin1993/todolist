@@ -10,4 +10,9 @@ public class RootController {
     public String getMeals() {
         return "todoList";
     }
+
+    @GetMapping("/login")
+    public String logIn() {
+        return "login";
+    }
 }

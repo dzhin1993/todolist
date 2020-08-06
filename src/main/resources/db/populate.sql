@@ -1,5 +1,5 @@
-INSERT INTO users VALUES (1, 'user', 'user@mail.ru', 'user');
-INSERT INTO users VALUES (2, 'user2', 'user2@mail.ru', 'user2');
+INSERT INTO USER VALUES (1, 'user', 'user@mail.ru', '{noop}user');
+INSERT INTO USER VALUES (2, 'user2', 'user2@mail.ru', '{noop}user2');
 
 INSERT INTO todo VALUES (1, 'day_1_task_1', '2010-10-1 13:00', FALSE, 1);
 INSERT INTO todo VALUES (2, 'day_1_task_2', '2010-10-1 18:00', FALSE, 1);
