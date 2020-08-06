@@ -7,7 +7,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -17,7 +16,6 @@ import java.util.Collections;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "USER")
 public class User extends AbstractNamedEntity implements UserDetails {
 
     @NotBlank

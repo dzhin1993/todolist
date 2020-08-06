@@ -1,7 +1,7 @@
 DROP TABLE todo IF EXISTS;
-DROP TABLE USER IF EXISTS;
+DROP TABLE user IF EXISTS;
 
-CREATE TABLE USER (
+CREATE TABLE user (
   id         INTEGER IDENTITY PRIMARY KEY,
   name       VARCHAR(255) NOT NULL,
   email      VARCHAR(255) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE todo (
   date_time TIMESTAMP    NOT NULL,
   completed BOOLEAN      NOT NULL,
   user_id   INTEGER      NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES USER (id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX todo_date_time ON todo (date_time);
