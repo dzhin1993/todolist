@@ -4,12 +4,11 @@ import com.zhinkoilya1993.todolist.model.Todo;
 import com.zhinkoilya1993.todolist.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.zhinkoilya1993.todolist.SecurityUtil.*;
+import static com.zhinkoilya1993.todolist.SecurityUtil.getUserId;
 
 
 @RestController
@@ -25,8 +24,8 @@ public class AjaxController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Todo> getAll(Authentication auth) {
-       return service.getAll(getUserId());
+    public List<Todo> getAll() {
+        return service.getAll(getUserId());
     }
 
     @GetMapping("/by-completed")
@@ -52,6 +51,6 @@ public class AjaxController {
 
     @PostMapping("/complete")
     public void complete(@RequestParam Integer id, @RequestParam(value = "completed") Boolean completed) {
-        /*service.complete(id, completed);*/
+        service.complete(getUserId(), id, completed);
     }
 }

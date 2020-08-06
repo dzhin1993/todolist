@@ -27,8 +27,8 @@ public class TodoService {
         return todoRepository.getAllByCompleted(ownerId, completed);
     }
 
-    public Todo get(int ownerId, int id) {
-        return todoRepository.findById(id)
+    public Todo get(int ownerId, int todId) {
+        return todoRepository.findById(todId)
                 .filter(todo -> todo.getUser().getId() == ownerId)
                 .orElse(null);
     }
@@ -43,12 +43,13 @@ public class TodoService {
     }
 
     @Transactional
-    public void delete(int ownerId, int id) {
-        todoRepository.delete(id, ownerId);
+    public void delete(int ownerId, int todoId) {
+        todoRepository.delete(todoId, ownerId);
     }
 
     @Transactional
-    public void complete(int id, boolean completed) {
-        /*todoRepository.findById(id).ifPresent(t -> t.setCompleted(completed));*/
+    public void complete(int ownerId, int todoId, boolean completed) {
+        Todo todo = get(ownerId, todoId);
+        todo.setCompleted(completed);
     }
 }
