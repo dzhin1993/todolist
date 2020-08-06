@@ -1,6 +1,5 @@
 package com.zhinkoilya1993.todolist.service;
 
-import com.zhinkoilya1993.todolist.AuthorizedUser;
 import com.zhinkoilya1993.todolist.model.User;
 import com.zhinkoilya1993.todolist.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +20,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.findByEmail(email);
         if (user != null) {
-            return new AuthorizedUser(user);
+            return user;
         }
         throw new UsernameNotFoundException("User '" + email + "' not found");
     }
