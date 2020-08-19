@@ -25,4 +25,12 @@ public class UserService implements UserDetailsService {
         }
         throw new UsernameNotFoundException("User '" + email + "' not found");
     }
+
+    public UserDetails save(String email) {
+        User user = repository.findByEmail(email);
+        if (user != null) {
+            return new LoggedUser(user);
+        }
+        throw new UsernameNotFoundException("User '" + email + "' not found");
+    }
 }
