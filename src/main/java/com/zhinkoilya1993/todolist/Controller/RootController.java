@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RootController {
 
     @GetMapping("/todoList")
-    public String getMeals() {
+    public String getAll() {
         return "todoList";
     }
 
     @GetMapping("/login")
-    public String logIn() {
+    public String signIn() {
         return "login";
     }
 }
