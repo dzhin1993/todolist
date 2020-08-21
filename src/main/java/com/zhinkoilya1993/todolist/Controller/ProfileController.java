@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = "/registration")
-public class UserController {
+public class ProfileController {
 
     private final UserService service;
 
-    public UserController(UserService service) {
+    public ProfileController(UserService service) {
         this.service = service;
     }
 

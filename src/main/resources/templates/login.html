@@ -19,11 +19,12 @@
         </div>
         <input class="btn btn-primary" type="submit" value="Sign In"/>
     </form>
-</div>
-<div class="container">
     <form th:action="@{/registration}" method="get">
         <input class="btn btn-primary" type="submit" value="Log In"/>
     </form>
+</div>
+<div th:if="${param.error}" class="alert alert-danger">
+    Invalid username or password.
 </div>
 </body>
 </html>
