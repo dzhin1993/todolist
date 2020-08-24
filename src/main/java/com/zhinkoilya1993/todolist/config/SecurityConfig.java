@@ -37,7 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                     .loginPage("/login")
                     .defaultSuccessUrl("/todoList", true)
-                    .permitAll();
+                    .permitAll()
+                .and()
+                    .logout()
+                    .logoutSuccessUrl("/login");
     }
 
     @Bean
