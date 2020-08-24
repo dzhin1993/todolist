@@ -3,6 +3,7 @@ package com.zhinkoilya1993.todolist.service;
 import com.zhinkoilya1993.todolist.LoggedUser;
 import com.zhinkoilya1993.todolist.model.User;
 import com.zhinkoilya1993.todolist.repository.UserRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
@@ -39,13 +39,10 @@ public class UserService implements UserDetailsService {
         repository.save(user);
     }
 
+    @SneakyThrows
     public void saveAndLogin(HttpServletRequest request, User user) {
         String password = user.getPassword();
         save(user);
-        try {
-            request.login(user.getEmail(), password);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        }
+        request.login(user.getEmail(), password);
     }
 }
