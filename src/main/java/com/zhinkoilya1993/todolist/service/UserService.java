@@ -1,6 +1,7 @@
 package com.zhinkoilya1993.todolist.service;
 
 import com.zhinkoilya1993.todolist.LoggedUser;
+import com.zhinkoilya1993.todolist.UserExistException;
 import com.zhinkoilya1993.todolist.model.User;
 import com.zhinkoilya1993.todolist.repository.UserRepository;
 import lombok.SneakyThrows;
@@ -36,6 +37,9 @@ public class UserService implements UserDetailsService {
 
     private void save(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
+        if (repository.findByEmail(user.getEmail()) != null) {
+            throw new UserExistException("User with this email already exist");
+        }
         repository.save(user);
     }
 

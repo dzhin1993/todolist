@@ -25,5 +25,8 @@
         <input class="btn btn-primary" type="submit" value="Register"/>
     </form>
 </div>
+<div th:if="${error}" class="alert alert-danger">
+    <div th:text="${error}"></div>
+</div>
 </body>
 </html>
