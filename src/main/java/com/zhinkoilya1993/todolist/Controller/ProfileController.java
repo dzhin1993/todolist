@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/registration")
@@ -25,7 +26,7 @@ public class ProfileController {
     }
 
     @PostMapping
-    public String registerUser(HttpServletRequest request, User user) {
+    public String registerUser(@Valid User user, HttpServletRequest request) {
         service.saveAndLogin(request, user);
         return "redirect:/todoList";
     }
