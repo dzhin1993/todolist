@@ -1,9 +1,5 @@
 tr[data-todoCompleted="true"] {
-  text-decoration: line-through;
-}
-
-tr[data-todoCompleted="false"] {
-  text-decoration: none;
+  opacity: 0.3;
 }
 
 #todoTable_paginate a {

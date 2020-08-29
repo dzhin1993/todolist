@@ -48,6 +48,11 @@ $(function () {
                         "asc"
                     ]
                 ],
+                "createdRow": function (row, data, dataIndex) {
+                    if (data.completed) {
+                        $(row).attr("data-todoCompleted", true);
+                    }
+                }
             }),
             updateTable: updateFiltered
         }
@@ -73,7 +78,7 @@ function complete(chkbox, id) {
         url: ajaxUrl + 'complete',
         data: {id: id, completed: enabled}
     }).done(function () {
-        context.updateTable();
+        chkbox.closest("tr").attr("data-todoCompleted", enabled);
     });
 }
 
