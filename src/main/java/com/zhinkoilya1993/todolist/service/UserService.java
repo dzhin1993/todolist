@@ -1,7 +1,7 @@
 package com.zhinkoilya1993.todolist.service;
 
 import com.zhinkoilya1993.todolist.LoggedUser;
-import com.zhinkoilya1993.todolist.UserExistException;
+import com.zhinkoilya1993.todolist.exception.UserExistException;
 import com.zhinkoilya1993.todolist.model.User;
 import com.zhinkoilya1993.todolist.repository.UserRepository;
 import lombok.SneakyThrows;

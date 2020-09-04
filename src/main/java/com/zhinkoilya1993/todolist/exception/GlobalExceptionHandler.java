@@ -1,4 +1,4 @@
-package com.zhinkoilya1993.todolist;
+package com.zhinkoilya1993.todolist.exception;
 
 import com.zhinkoilya1993.todolist.Controller.ProfileController;
 import org.springframework.validation.BindException;
