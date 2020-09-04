@@ -1,4 +1,4 @@
-DROP TABLE todo IF EXISTS;
+DROP TABLE task IF EXISTS;
 DROP TABLE user IF EXISTS;
 
 CREATE TABLE user (
@@ -8,7 +8,7 @@ CREATE TABLE user (
   password   VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE todo (
+CREATE TABLE task (
   id        INTEGER IDENTITY PRIMARY KEY,
   name      VARCHAR(255) NOT NULL,
   start     TIMESTAMP    NOT NULL,

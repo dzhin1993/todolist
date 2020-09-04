@@ -1,6 +1,6 @@
 package com.zhinkoilya1993.todolist.Controller;
 
-import com.zhinkoilya1993.todolist.model.Todo;
+import com.zhinkoilya1993.todolist.model.Task;
 import com.zhinkoilya1993.todolist.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,17 +24,17 @@ public class AjaxController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Todo> getAll() {
+    public List<Task> getAll() {
         return service.getAll(getUserId());
     }
 
     @GetMapping("/by-completed")
-    public List<Todo> getAllByCompleted(@RequestParam(value = "completed") Boolean completed) {
+    public List<Task> getAllByCompleted(@RequestParam(value = "completed") Boolean completed) {
         return service.getAllByCompleted(getUserId(), completed);
     }
 
     @GetMapping(value = "/{id}")
-    public Todo get(@PathVariable int id) {
+    public Task get(@PathVariable int id) {
         return service.get(getUserId(), id);
     }
 
@@ -45,8 +45,8 @@ public class AjaxController {
     }
 
     @PostMapping
-    public void saveOrUpdate(Todo todo) {
-        service.saveOrUpdate(getUserId(), todo);
+    public void saveOrUpdate(Task task) {
+        service.saveOrUpdate(getUserId(), task);
     }
 
     @PostMapping("/complete")

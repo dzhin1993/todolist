@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Todo extends AbstractNamedEntity {
+public class Task extends AbstractNamedEntity {
 
     @NotNull
     private LocalDate start;

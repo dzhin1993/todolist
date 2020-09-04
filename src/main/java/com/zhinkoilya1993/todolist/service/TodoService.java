@@ -1,6 +1,6 @@
 package com.zhinkoilya1993.todolist.service;
 
-import com.zhinkoilya1993.todolist.model.Todo;
+import com.zhinkoilya1993.todolist.model.Task;
 import com.zhinkoilya1993.todolist.repository.TodoRepository;
 import com.zhinkoilya1993.todolist.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -19,32 +19,32 @@ public class TodoService {
         this.userRepository = userRepository;
     }
 
-    public List<Todo> getAll(int ownerId) {
+    public List<Task> getAll(int ownerId) {
         return todoRepository.getAll(ownerId);
     }
 
-    public List<Todo> getAllByCompleted(int ownerId, boolean completed) {
+    public List<Task> getAllByCompleted(int ownerId, boolean completed) {
         return todoRepository.getAllByCompleted(ownerId, completed);
     }
 
-    public Todo get(int ownerId, int todId) {
+    public Task get(int ownerId, int todId) {
         return todoRepository.findById(todId)
-                .filter(todo -> todo.getUser().getId() == ownerId)
+                .filter(task -> task.getUser().getId() == ownerId)
                 .orElse(null);
     }
 
     @Transactional
-    public void saveOrUpdate(int ownerId, Todo todo) {
-        if (!todo.isNew() && get(ownerId, todo.getId()) == null) {
+    public void saveOrUpdate(int ownerId, Task task) {
+        if (!task.isNew() && get(ownerId, task.getId()) == null) {
             return;
         }
 
-        if (todo.getStart().isAfter(todo.getEnd())) {
+        if (task.getStart().isAfter(task.getEnd())) {
             throw new IllegalArgumentException("The start date of the task is after than end of the task");
         }
 
-        todo.setUser(userRepository.getOne(ownerId));
-        todoRepository.save(todo);
+        task.setUser(userRepository.getOne(ownerId));
+        todoRepository.save(task);
     }
 
     @Transactional
@@ -54,7 +54,7 @@ public class TodoService {
 
     @Transactional
     public void complete(int ownerId, int todoId, boolean completed) {
-        Todo todo = get(ownerId, todoId);
-        todo.setCompleted(completed);
+        Task task = get(ownerId, todoId);
+        task.setCompleted(completed);
     }
 }
