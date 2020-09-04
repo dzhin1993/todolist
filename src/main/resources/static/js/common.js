@@ -24,7 +24,10 @@ $(function () {
                         "data": "name"
                     },
                     {
-                        "data": "dateTime",
+                        "data": "start",
+                    },
+                    {
+                        "data": "end",
                         "render": renderDateTime
                     },
                     {
@@ -51,6 +54,9 @@ $(function () {
                 "createdRow": function (row, data, dataIndex) {
                     if (data.completed) {
                         $(row).attr("data-todoCompleted", true);
+                    }
+                    if(data.end <= new Date().toJSON()) {
+                        $(row).attr("data-excess", true);
                     }
                 }
             }),

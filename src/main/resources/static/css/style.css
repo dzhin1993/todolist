@@ -2,6 +2,10 @@ tr[data-todoCompleted="true"] {
   opacity: 0.3;
 }
 
+tr[data-excess="true"] {
+  color: red;
+}
+
 #todoTable_paginate a {
   color: black;
   padding: 8px;

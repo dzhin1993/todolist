@@ -38,6 +38,11 @@ public class TodoService {
         if (!todo.isNew() && get(ownerId, todo.getId()) == null) {
             return;
         }
+
+        if (todo.getStart().isAfter(todo.getEnd())) {
+            throw new IllegalArgumentException("The start date of the task is after than end of the task");
+        }
+
         todo.setUser(userRepository.getOne(ownerId));
         todoRepository.save(todo);
     }

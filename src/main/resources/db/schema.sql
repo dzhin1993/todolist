@@ -11,10 +11,9 @@ CREATE TABLE user (
 CREATE TABLE todo (
   id        INTEGER IDENTITY PRIMARY KEY,
   name      VARCHAR(255) NOT NULL,
-  date_time TIMESTAMP    NOT NULL,
+  start     TIMESTAMP    NOT NULL,
+  end       TIMESTAMP    NOT NULL,
   completed BOOLEAN      NOT NULL,
   user_id   INTEGER      NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
 );
-
-CREATE UNIQUE INDEX todo_date_time ON todo (date_time);

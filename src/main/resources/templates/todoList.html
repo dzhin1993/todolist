@@ -54,7 +54,8 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Datetime</th>
+            <th>Start</th>
+            <th>Due date</th>
             <th>Completed</th>
             <th></th>
             <th></th>
@@ -79,8 +80,12 @@
                         <input type="text" class="form-control" id="name" name="name" placeholder="Task name">
                     </div>
                     <div class="form-group">
-                        <label for="dateTime" class="col-form-label">Date Time</label>
-                        <input type="datetime-local" class="form-control" id="dateTime" name="dateTime">
+                        <label for="start" class="col-form-label">Start task</label>
+                        <input type="date" class="form-control" id="start" name="start">
+                    </div>
+                    <div class="form-group">
+                        <label for="end" class="col-form-label">Due date</label>
+                        <input type="date" class="form-control" id="end" name="end">
                     </div>
                 </form>
             </div>

@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -18,7 +18,10 @@ import java.time.LocalDateTime;
 public class Todo extends AbstractNamedEntity {
 
     @NotNull
-    private LocalDateTime dateTime;
+    private LocalDate start;
+
+    @NotNull
+    private LocalDate end;
 
     @NotNull
     private boolean completed = false;
